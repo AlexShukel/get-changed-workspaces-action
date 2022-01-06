@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "Getting changed packages action",
     "scripts": {
-        "build": "esbuild src/index.ts --bundle --minify --target=node16 --outfile=dist/index.js"
+        "build": "esbuild src/index.ts --bundle --minify --target=node16 --outfile=dist/index.js --platform=node"
     },
     "keywords": [],
     "author": "Aleksandras Šukelovič",
