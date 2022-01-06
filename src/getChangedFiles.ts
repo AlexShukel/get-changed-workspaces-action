@@ -8,7 +8,7 @@ export const getChangedFiles = async (): Promise<string[]> => {
 
     await exec("git", ["diff", "--name-only", `origin/${context.payload.pull_request?.base.ref}`], {
         listeners: {
-            stdline: result.push,
+            stdline: (data) => result.push(data),
         },
     });
 
