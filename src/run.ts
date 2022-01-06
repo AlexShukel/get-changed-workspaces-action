@@ -10,7 +10,7 @@ export const run = async () => {
     const output: string[] = [];
     const token = getInput("token");
 
-    await exec("git", ["diff", "--name-only", context.payload.pull_request?.base.ref], {
+    await exec("git", ["diff", "--name-only", `origin/${context.payload.pull_request?.base.ref}`], {
         listeners: {
             stdout: (data) => console.log(data.toString()),
         },
