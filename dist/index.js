@@ -7647,6 +7647,7 @@ var run = async () => {
   const workspaces = (0, import_core.getInput)("workspaces") || await getWorkspaces();
   const output = [];
   const token = (0, import_core.getInput)("token");
+  await (0, import_exec.exec)("git", ["fetch", "--all"]);
   await (0, import_exec.exec)("git", ["diff", "--name-only", `origin/${(_a = import_github.context.payload.pull_request) == null ? void 0 : _a.base.ref}`], {
     listeners: {
       stdout: (data) => console.log(data.toString())
@@ -7662,4 +7663,3 @@ run();
  * Copyright (c) 2014-2017, Jon Schlinkert.
  * Released under the MIT License.
  */
-//# sourceMappingURL=index.js.map
