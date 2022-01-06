@@ -5,7 +5,7 @@
     "scripts": {
         "build": "npm run build:dev -- --minify",
         "build:dev": "esbuild src/index.ts --bundle --target=node16 --outfile=dist/index.js --platform=node",
-        "dev": "npm run build:dev -- --watch"
+        "dev": "npm run build:dev -- --watch --sourcemap"
     },
     "keywords": [],
     "author": "Aleksandras Šukelovič",
