@@ -9,5 +9,6 @@ export const run = async () => {
     const output: string[] = [];
     const token = getInput("token");
 
-    await getChangedFiles();
+    const changedFiles = await getChangedFiles();
+    console.log(changedFiles);
 };

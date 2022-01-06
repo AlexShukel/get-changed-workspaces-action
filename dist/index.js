@@ -7631,7 +7631,7 @@ var getChangedFiles = async () => {
   await (0, import_exec.exec)("git", ["fetch", "--all"]);
   await (0, import_exec.exec)("git", ["diff", "--name-only", `origin/${(_a = import_github.context.payload.pull_request) == null ? void 0 : _a.base.ref}`], {
     listeners: {
-      stdline: (data) => console.log("print: ", data)
+      stdline: result.push
     }
   });
   return result;
@@ -7659,7 +7659,8 @@ var run = async () => {
   const workspaces = (0, import_core.getInput)("workspaces") || await getWorkspaces();
   const output = [];
   const token = (0, import_core.getInput)("token");
-  await getChangedFiles();
+  const changedFiles = await getChangedFiles();
+  console.log(changedFiles);
 };
 
 // src/index.ts
