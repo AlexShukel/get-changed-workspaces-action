@@ -7622,6 +7622,21 @@ var require_github = __commonJS({
 // src/run.ts
 var import_core = __toESM(require_core());
 
+// src/getChangedFiles.ts
+var import_exec = __toESM(require_exec());
+var import_github = __toESM(require_github());
+var getChangedFiles = async () => {
+  var _a;
+  const result = [];
+  await (0, import_exec.exec)("git", ["fetch", "--all"]);
+  await (0, import_exec.exec)("git", ["diff", "--name-only", `origin/${(_a = import_github.context.payload.pull_request) == null ? void 0 : _a.base.ref}`], {
+    listeners: {
+      stdout: (data) => console.log("print: ", data.toString())
+    }
+  });
+  return result;
+};
+
 // src/getWorkspaces.ts
 var import_fs = __toESM(require("fs"));
 var getWorkspaces = async () => {
@@ -7640,19 +7655,11 @@ var getWorkspaces = async () => {
 };
 
 // src/run.ts
-var import_exec = __toESM(require_exec());
-var import_github = __toESM(require_github());
 var run = async () => {
-  var _a;
   const workspaces = (0, import_core.getInput)("workspaces") || await getWorkspaces();
   const output = [];
   const token = (0, import_core.getInput)("token");
-  await (0, import_exec.exec)("git", ["fetch", "--all"]);
-  await (0, import_exec.exec)("git", ["diff", "--name-only", `origin/${(_a = import_github.context.payload.pull_request) == null ? void 0 : _a.base.ref}`], {
-    listeners: {
-      stdout: (data) => console.log(data.toString())
-    }
-  });
+  await getChangedFiles();
 };
 
 // src/index.ts
