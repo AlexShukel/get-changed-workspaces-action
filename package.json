@@ -1,7 +1,7 @@
 {
-    "name": "get-changed-packages-action",
+    "name": "get-changed-workspaces-action",
     "version": "1.0.0",
-    "description": "Getting changed packages action",
+    "description": "An action to get those workspaces where files has been changed.",
     "scripts": {
         "build": "npm run build:dev -- --minify",
         "build:dev": "esbuild src/index.ts --bundle --target=node16 --outfile=dist/index.js --platform=node",

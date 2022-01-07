@@ -1,14 +1,17 @@
-name: Get changed packages
-description: A github action that gets changed packages
+name: Get changed workspaces
+description: A github action that gets changed workspaces
 author: Aleksandras Sukelovic <alex.shukel@gmail.com>
 inputs:
     token:
-        description: "Github access token"
+        description: Github access token
         required: false
         default: ${{ github.token }}
     workspaces:
-        description: "Paths where to get changed packages"
+        description: Paths where to get changed workspaces
         required: false
+outputs:
+    changed_workspaces:
+        description: Array of changed workspaces
 
 runs:
     using: node16
