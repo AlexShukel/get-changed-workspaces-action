@@ -3,6 +3,8 @@ import { splitPath } from "./utils";
 import { getWorkspacePath } from "./getWorkspacePath";
 
 export const getChangedWorkspace = (file: string, workspace: string): string | null => {
+    workspace = workspace.replace(/^\/+/, "");
+
     // check if glob pattern was provided
     if (minimatch(file, workspace)) {
         return getWorkspacePath(file, workspace);
