@@ -10343,9 +10343,10 @@ var getWorkspaces = async () => {
 // src/run.ts
 var run = async () => {
   const output = [];
-  const changedFiles = await getChangedFiles();
+  const changedFiles = (await getChangedFiles()).map((val) => process.cwd() + val);
   const workspaces = await getWorkspaces();
-  console.log(process.cwd());
+  console.log(changedFiles);
+  console.log(workspaces);
   (0, import_core2.setOutput)("changed_workspaces", output);
 };
 

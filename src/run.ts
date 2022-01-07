@@ -4,10 +4,11 @@ import { getWorkspaces } from "./getWorkspaces";
 
 export const run = async () => {
     const output: string[] = [];
-    const changedFiles = await getChangedFiles();
+    const changedFiles = (await getChangedFiles()).map((val) => process.cwd() + val);
     const workspaces = await getWorkspaces();
 
-    console.log(process.cwd());
+    console.log(changedFiles);
+    console.log(workspaces);
 
     setOutput("changed_workspaces", output);
 };
