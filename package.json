@@ -5,18 +5,25 @@
     "scripts": {
         "build": "npm run build:dev -- --minify",
         "build:dev": "esbuild src/index.ts --bundle --target=node16 --outfile=dist/index.js --platform=node",
-        "dev": "npm run build:dev -- --watch"
+        "dev": "npm run build:dev -- --watch",
+        "test": "jest",
+        "test:watch": "jest --watch"
     },
     "keywords": [],
     "author": "Aleksandras Šukelovič",
     "license": "ISC",
     "devDependencies": {
+        "@types/jest": "^27.4.0",
+        "@types/minimatch": "^3.0.5",
         "@types/node": "^17.0.8",
-        "esbuild": "^0.14.10"
+        "esbuild": "^0.14.10",
+        "jest": "^27.4.7",
+        "ts-jest": "^27.1.2"
     },
     "dependencies": {
-        "@actions/exec": "^1.1.0",
         "@actions/core": "^1.6.0",
-        "@actions/github": "^5.0.0"
+        "@actions/exec": "^1.1.0",
+        "@actions/github": "^5.0.0",
+        "minimatch": "^3.0.4"
     }
 }
