@@ -1,23 +1,17 @@
 import { getChangedFiles } from "./getChangedFiles";
-import { getWorkspaces } from "./getWorkspaces";
-import { getWorkspacesFromInput } from "./getWorkspacesFromInput";
-import { getChangedWorkspace } from "./getChangedWorkspace";
 import { setOutput } from "@actions/core";
+import { getWorkspaces } from "./getWorkspaces";
+import minimatch from "minimatch";
 
 export const run = async () => {
-    const workspaces = getWorkspacesFromInput() || (await getWorkspaces());
-
     const output: string[] = [];
+    const changedFiles = (await getChangedFiles()).map((path) => `${process.cwd()}/${path}`);
+    const workspaces = await getWorkspaces();
 
-    const changedFiles = await getChangedFiles();
-
-    changedFiles.forEach((file) => {
-        workspaces.forEach((workspace) => {
-            const changedWorkspace = getChangedWorkspace(file, workspace);
-            if (changedWorkspace) {
-                output.push(changedWorkspace);
-            }
-        });
+    workspaces.forEach((workspace, name) => {
+        if (minimatch.match(changedFiles, `${workspace}/**`).length > 0) {
+            output.push(name);
+        }
     });
 
     setOutput("changed_workspaces", output);
