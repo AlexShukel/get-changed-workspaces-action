@@ -10,5 +10,5 @@ export const run = async () => {
     const token = getInput("token");
 
     const changedFiles = await getChangedFiles();
-    console.log(changedFiles);
+    console.log(workspaces);
 };
