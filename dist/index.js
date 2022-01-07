@@ -10346,9 +10346,9 @@ var run = async () => {
   const output = [];
   const changedFiles = (await getChangedFiles()).map((path) => `${process.cwd()}/${path}`);
   const workspaces = await getWorkspaces();
-  workspaces.forEach((workspace) => {
+  workspaces.forEach((workspace, name) => {
     if (import_minimatch.default.match(changedFiles, `${workspace}/**`).length > 0) {
-      output.push(workspace);
+      output.push(name);
     }
   });
   (0, import_core2.setOutput)("changed_workspaces", output);
