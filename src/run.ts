@@ -1,14 +1,15 @@
 import { getInput } from "@actions/core";
 import { getChangedFiles } from "./getChangedFiles";
 import { getWorkspaces } from "./getWorkspaces";
+import { getWorkspacesFromInput } from "./getWorkspacesFromInput";
 
 export const run = async () => {
-    const workspaces = getInput("workspaces") || (await getWorkspaces());
+    const workspaces = getWorkspacesFromInput() || (await getWorkspaces());
 
-    // get array of paths to changed packages
     const output: string[] = [];
     const token = getInput("token");
 
     const changedFiles = await getChangedFiles();
     console.log(workspaces);
+    console.log(changedFiles);
 };
