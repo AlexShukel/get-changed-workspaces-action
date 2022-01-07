@@ -4,7 +4,7 @@ import { getWorkspaces } from "./getWorkspaces";
 
 export const run = async () => {
     const output: string[] = [];
-    const changedFiles = (await getChangedFiles()).map((val) => process.cwd() + val);
+    const changedFiles = (await getChangedFiles()).map((path) => `${process.cwd()}/${path}`);
     const workspaces = await getWorkspaces();
 
     console.log(changedFiles);

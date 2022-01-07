@@ -10343,7 +10343,7 @@ var getWorkspaces = async () => {
 // src/run.ts
 var run = async () => {
   const output = [];
-  const changedFiles = (await getChangedFiles()).map((val) => process.cwd() + val);
+  const changedFiles = (await getChangedFiles()).map((path) => `${process.cwd()}/${path}`);
   const workspaces = await getWorkspaces();
   console.log(changedFiles);
   console.log(workspaces);
