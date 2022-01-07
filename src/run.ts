@@ -2,6 +2,7 @@ import { getChangedFiles } from "./getChangedFiles";
 import { getWorkspaces } from "./getWorkspaces";
 import { getWorkspacesFromInput } from "./getWorkspacesFromInput";
 import { getChangedWorkspace } from "./getChangedWorkspace";
+import { setOutput } from "@actions/core";
 
 export const run = async () => {
     const workspaces = getWorkspacesFromInput() || (await getWorkspaces());
@@ -19,5 +20,5 @@ export const run = async () => {
         });
     });
 
-    console.log(output);
+    setOutput("changed_workspaces", output);
 };
