@@ -10345,7 +10345,7 @@ var run = async () => {
   const output = [];
   const changedFiles = await getChangedFiles();
   const workspaces = await getWorkspaces();
-  console.log(workspaces);
+  console.log(process.cwd());
   (0, import_core2.setOutput)("changed_workspaces", output);
 };
 

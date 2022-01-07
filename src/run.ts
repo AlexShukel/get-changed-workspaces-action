@@ -7,7 +7,7 @@ export const run = async () => {
     const changedFiles = await getChangedFiles();
     const workspaces = await getWorkspaces();
 
-    console.log(workspaces);
+    console.log(process.cwd());
 
     setOutput("changed_workspaces", output);
 };
