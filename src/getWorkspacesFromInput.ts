@@ -1,5 +1,6 @@
 import { getInput } from "@actions/core";
 
+// TODO take argument if it is a single string
 export const getWorkspacesFromInput = (): null | string[] => {
     const input = getInput("workspaces");
 
