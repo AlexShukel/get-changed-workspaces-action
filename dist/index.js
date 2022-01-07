@@ -4073,7 +4073,7 @@ var import_map_workspaces = __toESM(require_lib());
 var import_fs = __toESM(require("fs"));
 var run = async () => {
   const configSource = await import_fs.default.promises.readFile("package.json", { encoding: "utf-8" });
-  console.log((0, import_map_workspaces.default)({ pkg: JSON.parse(configSource), cwd: process.cwd() }));
+  console.log(await (0, import_map_workspaces.default)({ pkg: JSON.parse(configSource), cwd: process.cwd() }));
   (0, import_core.setOutput)("changed_workspaces", []);
 };
 

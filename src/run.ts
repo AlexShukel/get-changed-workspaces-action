@@ -14,7 +14,7 @@ export const run = async () => {
     // const changedFiles = await getChangedFiles();
 
     const configSource = await fs.promises.readFile("package.json", { encoding: "utf-8" });
-    console.log(mapWorkspaces({ pkg: JSON.parse(configSource), cwd: process.cwd() }));
+    console.log(await mapWorkspaces({ pkg: JSON.parse(configSource), cwd: process.cwd() }));
 
     // changedFiles.forEach((file) => {
     //     workspaces.forEach((workspace) => {
