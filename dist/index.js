@@ -7856,14 +7856,14 @@ var require_brace_expansion = __commonJS({
 // node_modules/minimatch/minimatch.js
 var require_minimatch = __commonJS({
   "node_modules/minimatch/minimatch.js"(exports, module2) {
-    module2.exports = minimatch;
-    minimatch.Minimatch = Minimatch;
+    module2.exports = minimatch2;
+    minimatch2.Minimatch = Minimatch;
     var path = { sep: "/" };
     try {
       path = require("path");
     } catch (er) {
     }
-    var GLOBSTAR = minimatch.GLOBSTAR = Minimatch.GLOBSTAR = {};
+    var GLOBSTAR = minimatch2.GLOBSTAR = Minimatch.GLOBSTAR = {};
     var expand = require_brace_expansion();
     var plTypes = {
       "!": { open: "(?:(?!(?:", close: "))[^/]*?)" },
@@ -7884,11 +7884,11 @@ var require_minimatch = __commonJS({
       }, {});
     }
     var slashSplit = /\/+/;
-    minimatch.filter = filter;
+    minimatch2.filter = filter;
     function filter(pattern, options) {
       options = options || {};
       return function(p, i, list) {
-        return minimatch(p, pattern, options);
+        return minimatch2(p, pattern, options);
       };
     }
     function ext(a, b) {
@@ -7903,11 +7903,11 @@ var require_minimatch = __commonJS({
       });
       return t;
     }
-    minimatch.defaults = function(def) {
+    minimatch2.defaults = function(def) {
       if (!def || !Object.keys(def).length)
-        return minimatch;
-      var orig = minimatch;
-      var m = function minimatch2(p, pattern, options) {
+        return minimatch2;
+      var orig = minimatch2;
+      var m = function minimatch3(p, pattern, options) {
         return orig.minimatch(p, pattern, ext(def, options));
       };
       m.Minimatch = function Minimatch2(pattern, options) {
@@ -7918,9 +7918,9 @@ var require_minimatch = __commonJS({
     Minimatch.defaults = function(def) {
       if (!def || !Object.keys(def).length)
         return Minimatch;
-      return minimatch.defaults(def).Minimatch;
+      return minimatch2.defaults(def).Minimatch;
     };
-    function minimatch(p, pattern, options) {
+    function minimatch2(p, pattern, options) {
       if (typeof pattern !== "string") {
         throw new TypeError("glob pattern string required");
       }
@@ -8006,7 +8006,7 @@ var require_minimatch = __commonJS({
         this.pattern = pattern.substr(negateOffset);
       this.negate = negate;
     }
-    minimatch.braceExpand = function(pattern, options) {
+    minimatch2.braceExpand = function(pattern, options) {
       return braceExpand(pattern, options);
     };
     Minimatch.prototype.braceExpand = braceExpand;
@@ -8260,7 +8260,7 @@ var require_minimatch = __commonJS({
       regExp._src = re;
       return regExp;
     }
-    minimatch.makeRe = function(pattern, options) {
+    minimatch2.makeRe = function(pattern, options) {
       return new Minimatch(pattern, options || {}).makeRe();
     };
     Minimatch.prototype.makeRe = makeRe;
@@ -8290,7 +8290,7 @@ var require_minimatch = __commonJS({
       }
       return this.regexp;
     }
-    minimatch.match = function(list, pattern, options) {
+    minimatch2.match = function(list, pattern, options) {
       options = options || {};
       var mm = new Minimatch(pattern, options);
       list = list.filter(function(f) {
@@ -9022,9 +9022,9 @@ var require_common = __commonJS({
     }
     var fs2 = require("fs");
     var path = require("path");
-    var minimatch = require_minimatch();
+    var minimatch2 = require_minimatch();
     var isAbsolute = require_path_is_absolute();
-    var Minimatch = minimatch.Minimatch;
+    var Minimatch = minimatch2.Minimatch;
     function alphasort(a, b) {
       return a.localeCompare(b, "en");
     }
@@ -9206,8 +9206,8 @@ var require_sync = __commonJS({
     module2.exports = globSync;
     globSync.GlobSync = GlobSync;
     var rp = require_fs();
-    var minimatch = require_minimatch();
-    var Minimatch = minimatch.Minimatch;
+    var minimatch2 = require_minimatch();
+    var Minimatch = minimatch2.Minimatch;
     var Glob = require_glob().Glob;
     var util = require("util");
     var path = require("path");
@@ -9293,7 +9293,7 @@ var require_sync = __commonJS({
       var abs = this._makeAbs(read);
       if (childrenIgnored(this, read))
         return;
-      var isGlobStar = remain[0] === minimatch.GLOBSTAR;
+      var isGlobStar = remain[0] === minimatch2.GLOBSTAR;
       if (isGlobStar)
         this._processGlobStar(prefix, read, abs, remain, index, inGlobStar);
       else
@@ -9602,8 +9602,8 @@ var require_glob = __commonJS({
   "node_modules/glob/glob.js"(exports, module2) {
     module2.exports = glob;
     var rp = require_fs();
-    var minimatch = require_minimatch();
-    var Minimatch = minimatch.Minimatch;
+    var minimatch2 = require_minimatch();
+    var Minimatch = minimatch2.Minimatch;
     var inherits = require_inherits();
     var EE = require("events").EventEmitter;
     var path = require("path");
@@ -9839,7 +9839,7 @@ var require_glob = __commonJS({
       var abs = this._makeAbs(read);
       if (childrenIgnored(this, read))
         return cb();
-      var isGlobStar = remain[0] === minimatch.GLOBSTAR;
+      var isGlobStar = remain[0] === minimatch2.GLOBSTAR;
       if (isGlobStar)
         this._processGlobStar(prefix, read, abs, remain, index, inGlobStar, cb);
       else
@@ -10156,7 +10156,7 @@ var require_lib3 = __commonJS({
     var { promisify } = require("util");
     var path = require("path");
     var getName = require_name_from_folder();
-    var minimatch = require_minimatch();
+    var minimatch2 = require_minimatch();
     var rpj = require_read_package_json_fast();
     var glob = require_glob();
     var pGlob = promisify(glob);
@@ -10282,7 +10282,7 @@ var require_lib3 = __commonJS({
           continue;
         }
         for (const item of patterns) {
-          if (minimatch(packageKey, item.pattern)) {
+          if (minimatch2(packageKey, item.pattern)) {
             const packagePathname = getPackagePathname(packageKey);
             const name = getPackageName(packages[packageKey], packagePathname);
             if (item.negate) {
@@ -10341,12 +10341,16 @@ var getWorkspaces = async () => {
 };
 
 // src/run.ts
+var import_minimatch = __toESM(require_minimatch());
 var run = async () => {
   const output = [];
   const changedFiles = (await getChangedFiles()).map((path) => `${process.cwd()}/${path}`);
   const workspaces = await getWorkspaces();
-  console.log(changedFiles);
-  console.log(workspaces);
+  workspaces.forEach((workspace) => {
+    if (import_minimatch.default.match(changedFiles, `${workspace}/**`).length > 0) {
+      output.push(workspace);
+    }
+  });
   (0, import_core2.setOutput)("changed_workspaces", output);
 };
 
