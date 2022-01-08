@@ -16,9 +16,9 @@ inputs:
         required: false
         default: "."
 outputs:
-    changed-packages-names:
+    names:
         description: Array of changed workspaces package.json names
-    changed-packages-paths:
+    paths:
         description: Array of changed workspaces paths
 
 runs:
