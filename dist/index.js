@@ -10190,7 +10190,6 @@ var require_lib3 = __commonJS({
     function pkgPathmame(opts) {
       return (...args) => {
         const cwd = opts.cwd ? opts.cwd : process.cwd();
-        console.log(cwd, ...args, path3.join.apply(null, [cwd, ...args]));
         return path3.join.apply(null, [cwd, ...args]);
       };
     }
@@ -10204,6 +10203,7 @@ var require_lib3 = __commonJS({
       return new Map(Array.from(map, (item) => item.reverse()));
     }
     async function mapWorkspaces2(opts = {}) {
+      console.log("Executing mapWorkspaces...", opts);
       if (!opts || !opts.pkg) {
         throw getError({
           message: "mapWorkspaces missing pkg info",
