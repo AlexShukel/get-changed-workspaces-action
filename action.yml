@@ -6,6 +6,12 @@ inputs:
         description: Github access token
         required: false
         default: ${{ github.token }}
+    base-ref:
+        description: |
+            Git base reference (branch name or a commit hash). The change list will be compared to the base if
+            push event occurs. Will default to the last commit of the current branch
+        required: false
+        default: ${{ github.ref }}
     workspaces:
         description: Paths where to get changed workspaces
         required: false

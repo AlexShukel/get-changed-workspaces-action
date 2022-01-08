@@ -8308,7 +8308,7 @@ var require_core = __commonJS({
       process.env["PATH"] = `${inputPath}${path3.delimiter}${process.env["PATH"]}`;
     }
     exports.addPath = addPath;
-    function getInput2(name, options) {
+    function getInput3(name, options) {
       const val = process.env[`INPUT_${name.replace(/ /g, "_").toUpperCase()}`] || "";
       if (options && options.required && !val) {
         throw new Error(`Input required and not supplied: ${name}`);
@@ -8318,16 +8318,16 @@ var require_core = __commonJS({
       }
       return val.trim();
     }
-    exports.getInput = getInput2;
+    exports.getInput = getInput3;
     function getMultilineInput(name, options) {
-      const inputs = getInput2(name, options).split("\n").filter((x) => x !== "");
+      const inputs = getInput3(name, options).split("\n").filter((x) => x !== "");
       return inputs;
     }
     exports.getMultilineInput = getMultilineInput;
     function getBooleanInput(name, options) {
       const trueValue = ["true", "True", "TRUE"];
       const falseValue = ["false", "False", "FALSE"];
-      const val = getInput2(name, options);
+      const val = getInput3(name, options);
       if (trueValue.includes(val))
         return true;
       if (falseValue.includes(val))
@@ -10306,6 +10306,16 @@ var import_minimatch = __toESM(require_minimatch());
 // src/getChangedFiles.ts
 var import_exec = __toESM(require_exec());
 var import_github = __toESM(require_github());
+var import_core = __toESM(require_core());
+
+// src/gitUtils.ts
+var isSameBranch = (ref1, ref2) => {
+  const ref1Segs = ref1.split("/");
+  const ref2Segs = ref2.split("/");
+  return ref1Segs[ref1Segs.length - 1] === ref2Segs[ref2Segs.length - 1];
+};
+
+// src/getChangedFiles.ts
 var getChangedFiles = async () => {
   var _a;
   if (import_github.context.eventName === "pull_request") {
@@ -10318,7 +10328,13 @@ var getChangedFiles = async () => {
     });
     return result;
   } else if (import_github.context.eventName === "push") {
-    console.log(import_github.context.payload);
+    const { before, ref } = import_github.context.payload;
+    const inputRef = (0, import_core.getInput)("base-ref");
+    let baseRef = inputRef;
+    if (isSameBranch(inputRef, ref)) {
+      baseRef = before;
+    }
+    console.log(baseRef);
     return [];
   } else {
     throw new Error("This action can be triggered only by pull_request or push event");
@@ -10326,19 +10342,19 @@ var getChangedFiles = async () => {
 };
 
 // src/run.ts
-var import_core2 = __toESM(require_core());
+var import_core3 = __toESM(require_core());
 
 // src/getWorkspaces.ts
-var import_core = __toESM(require_core());
+var import_core2 = __toESM(require_core());
 var import_map_workspaces = __toESM(require_lib3());
 var import_fs = __toESM(require("fs"));
 var import_path = __toESM(require("path"));
 var getWorkspaces = async () => {
-  const packageDirPath = (0, import_core.getInput)("package-path");
+  const packageDirPath = (0, import_core2.getInput)("package-path");
   const packageJsonPath = import_path.default.join(packageDirPath, "package.json");
   const configSource = await import_fs.default.promises.readFile(packageJsonPath, { encoding: "utf-8" });
   const parsedConfig = JSON.parse(configSource);
-  const workspaces = (0, import_core.getInput)("workspaces");
+  const workspaces = (0, import_core2.getInput)("workspaces");
   if (workspaces) {
     const workspacesArray = workspaces.split("\n").map((val) => val.trim());
     if (!parsedConfig.workspaces || Array.isArray(parsedConfig.workspaces)) {
@@ -10379,7 +10395,7 @@ var run = async () => {
       output.push(name);
     }
   });
-  (0, import_core2.setOutput)("changed_workspaces", output);
+  (0, import_core3.setOutput)("changed_workspaces", output);
 };
 
 // src/index.ts
