@@ -10316,19 +10316,22 @@ var isSameBranch = (ref1, ref2) => {
 
 // src/getChangedFilesFromGit.ts
 var import_exec = __toESM(require_exec());
+
+// src/constants.ts
+var NULL_SHA = "0000000000000000000000000000000000000000";
+var FETCH_HEAD = "FETCH_HEAD";
+
+// src/getChangedFilesFromGit.ts
 var getChangedFilesFromGit = async (ref) => {
   const result = [];
   await (0, import_exec.exec)("git", ["fetch", "--depth=1", "--no-tags", "origin", ref]);
-  await (0, import_exec.exec)("git", ["diff", "--name-only", "--", ref], {
+  await (0, import_exec.exec)("git", ["diff", "--name-only", FETCH_HEAD], {
     listeners: {
       stdline: (data) => result.push(data)
     }
   });
   return result;
 };
-
-// src/constants.ts
-var NULL_SHA = "0000000000000000000000000000000000000000";
 
 // src/getChangedFiles.ts
 var getChangedFiles = async () => {
