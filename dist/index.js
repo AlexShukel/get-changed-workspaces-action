@@ -10190,6 +10190,7 @@ var require_lib3 = __commonJS({
     function pkgPathmame(opts) {
       return (...args) => {
         const cwd = opts.cwd ? opts.cwd : process.cwd();
+        console.log(cwd, ...args, path3.join.apply(null, [cwd, ...args]));
         return path3.join.apply(null, [cwd, ...args]);
       };
     }
