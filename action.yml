@@ -2,10 +2,6 @@ name: Get changed workspaces
 description: A github action that gets changed workspaces
 author: Aleksandras Sukelovic <alex.shukel@gmail.com>
 inputs:
-    token:
-        description: Github access token
-        required: false
-        default: ${{ github.token }}
     base-ref:
         description: |
             Git base reference (branch name or a commit hash). The change list will be compared to the base if
