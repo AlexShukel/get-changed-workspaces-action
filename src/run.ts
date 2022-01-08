@@ -12,9 +12,6 @@ export const run = async () => {
     const changedFiles = (await getChangedFiles()).map((file) => path.join(gitRoot, file));
     const workspaces = await getWorkspaces();
 
-    console.log("Changed files:", changedFiles);
-    console.log("Workspaces:", workspaces);
-
     const packagesNames: string[] = [];
     const packagesPaths: string[] = [];
 
@@ -25,8 +22,8 @@ export const run = async () => {
         }
     });
 
-    console.log("Names:", packagesNames);
-    console.log("Paths:", packagesPaths);
+    console.log(packagesNames);
+    console.log(packagesPaths);
 
     setOutput("changed-packages-names", packagesNames);
     setOutput("changed-packages-paths", packagesPaths);

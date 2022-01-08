@@ -10398,16 +10398,21 @@ var getWorkspaces = async () => {
 
 // src/run.ts
 var run = async () => {
-  const output = [];
   const gitRoot = await getRootDirectory();
   const changedFiles = (await getChangedFiles()).map((file) => import_path2.default.join(gitRoot, file));
   const workspaces = await getWorkspaces();
+  const packagesNames = [];
+  const packagesPaths = [];
   workspaces.forEach((workspace, name) => {
     if (import_minimatch.default.match(changedFiles, import_path2.default.join(process.cwd(), workspace, "**")).length > 0) {
-      output.push(name);
+      packagesNames.push(name);
+      packagesPaths.push(workspace);
     }
   });
-  (0, import_core3.setOutput)("changed_workspaces", output);
+  console.log(packagesNames);
+  console.log(packagesPaths);
+  (0, import_core3.setOutput)("changed-packages-names", packagesNames);
+  (0, import_core3.setOutput)("changed-packages-paths", packagesPaths);
 };
 
 // src/index.ts
