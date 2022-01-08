@@ -9,8 +9,9 @@ export const run = async () => {
     const output: string[] = [];
     const gitRoot = await getRootDirectory();
     const changedFiles = (await getChangedFiles()).map((file) => path.join(gitRoot, file));
-    console.log(changedFiles);
     const workspaces = await getWorkspaces();
+
+    console.log(workspaces);
 
     workspaces.forEach((workspace, name) => {
         if (minimatch.match(changedFiles, `${workspace}/**`).length > 0) {

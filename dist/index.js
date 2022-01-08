@@ -10324,7 +10324,6 @@ var import_fs = __toESM(require("fs"));
 var import_path = __toESM(require("path"));
 var getWorkspaces = async () => {
   const packagePath = (0, import_core.getInput)("package-path");
-  console.log("Path to package.json:", import_path.default.join(packagePath, "package.json"));
   const configSource = await import_fs.default.promises.readFile(import_path.default.join(packagePath, "package.json"), { encoding: "utf-8" });
   const parsedConfig = JSON.parse(configSource);
   const workspaces = (0, import_core.getInput)("workspaces");
@@ -10366,8 +10365,8 @@ var run = async () => {
   const output = [];
   const gitRoot = await getRootDirectory();
   const changedFiles = (await getChangedFiles()).map((file) => import_path2.default.join(gitRoot, file));
-  console.log(changedFiles);
   const workspaces = await getWorkspaces();
+  console.log(workspaces);
   workspaces.forEach((workspace, name) => {
     if (import_minimatch.default.match(changedFiles, `${workspace}/**`).length > 0) {
       output.push(name);
