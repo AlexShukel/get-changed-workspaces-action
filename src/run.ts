@@ -12,7 +12,7 @@ export const run = async () => {
     const workspaces = await getWorkspaces();
 
     workspaces.forEach((workspace, name) => {
-        if (minimatch.match(changedFiles, `${workspace}/**`).length > 0) {
+        if (minimatch.match(changedFiles, path.join(process.cwd(), workspace, "**")).length > 0) {
             output.push(name);
         }
     });
