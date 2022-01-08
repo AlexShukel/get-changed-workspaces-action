@@ -12,16 +12,16 @@ export const run = async () => {
     const changedFiles = (await getChangedFiles()).map((file) => path.join(gitRoot, file));
     const workspaces = await getWorkspaces();
 
-    const packagesNames: string[] = [];
-    const packagesPaths: string[] = [];
+    const names: string[] = [];
+    const paths: string[] = [];
 
     workspaces.forEach((workspace, name) => {
         if (minimatch.match(changedFiles, path.join(process.cwd(), workspace, "**")).length > 0) {
-            packagesNames.push(name);
-            packagesPaths.push(workspace);
+            names.push(name);
+            paths.push(workspace);
         }
     });
 
-    setOutput("changed-packages-names", packagesNames);
-    setOutput("changed-packages-paths", packagesPaths);
+    setOutput("names", names);
+    setOutput("paths", paths);
 };
