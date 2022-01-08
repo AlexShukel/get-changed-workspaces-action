@@ -6,7 +6,7 @@ import { NULL_SHA } from "./constants";
 
 export const getChangedFiles = async (): Promise<string[]> => {
     if (context.eventName === "pull_request") {
-        return getChangedFilesFromGit(`origin/${context.payload.pull_request?.base.ref}`);
+        return getChangedFilesFromGit(context.payload.pull_request?.base.ref);
     } else if (context.eventName === "push") {
         const { before, ref } = context.payload as { before: string; ref: string };
 

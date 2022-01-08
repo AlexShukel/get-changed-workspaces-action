@@ -10337,7 +10337,7 @@ var getChangedFilesFromGit = async (ref) => {
 var getChangedFiles = async () => {
   var _a;
   if (import_github.context.eventName === "pull_request") {
-    return getChangedFilesFromGit(`origin/${(_a = import_github.context.payload.pull_request) == null ? void 0 : _a.base.ref}`);
+    return getChangedFilesFromGit((_a = import_github.context.payload.pull_request) == null ? void 0 : _a.base.ref);
   } else if (import_github.context.eventName === "push") {
     const { before, ref } = import_github.context.payload;
     if (ref.startsWith("refs/tags/")) {
@@ -10407,7 +10407,6 @@ var run = async () => {
   const changedFiles = (await getChangedFiles()).map((file) => import_path2.default.join(gitRoot, file));
   const workspaces = await getWorkspaces();
   workspaces.forEach((workspace, name) => {
-    console.log(import_path2.default.join(process.cwd(), workspace, "**"));
     if (import_minimatch.default.match(changedFiles, import_path2.default.join(process.cwd(), workspace, "**")).length > 0) {
       output.push(name);
     }

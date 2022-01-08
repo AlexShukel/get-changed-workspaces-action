@@ -12,7 +12,6 @@ export const run = async () => {
     const workspaces = await getWorkspaces();
 
     workspaces.forEach((workspace, name) => {
-        console.log(path.join(process.cwd(), workspace, "**"));
         if (minimatch.match(changedFiles, path.join(process.cwd(), workspace, "**")).length > 0) {
             output.push(name);
         }
