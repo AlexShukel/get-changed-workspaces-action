@@ -16,8 +16,10 @@ inputs:
         required: false
         default: "."
 outputs:
-    changed_workspaces:
-        description: Array of changed workspaces
+    changed-packages-names:
+        description: Array of changed workspaces package.json names
+    changed-packages-paths:
+        description: Array of changed workspaces paths
 
 runs:
     using: node16
