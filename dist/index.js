@@ -100,7 +100,7 @@ var require_io_util = __commonJS({
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.getCmdPath = exports.tryGetExecutablePath = exports.isRooted = exports.isDirectory = exports.exists = exports.IS_WINDOWS = exports.unlink = exports.symlink = exports.stat = exports.rmdir = exports.rename = exports.readlink = exports.readdir = exports.mkdir = exports.lstat = exports.copyFile = exports.chmod = void 0;
     var fs2 = __importStar(require("fs"));
-    var path2 = __importStar(require("path"));
+    var path3 = __importStar(require("path"));
     _a = fs2.promises, exports.chmod = _a.chmod, exports.copyFile = _a.copyFile, exports.lstat = _a.lstat, exports.mkdir = _a.mkdir, exports.readdir = _a.readdir, exports.readlink = _a.readlink, exports.rename = _a.rename, exports.rmdir = _a.rmdir, exports.stat = _a.stat, exports.symlink = _a.symlink, exports.unlink = _a.unlink;
     exports.IS_WINDOWS = process.platform === "win32";
     function exists(fsPath) {
@@ -147,7 +147,7 @@ var require_io_util = __commonJS({
         }
         if (stats && stats.isFile()) {
           if (exports.IS_WINDOWS) {
-            const upperExt = path2.extname(filePath).toUpperCase();
+            const upperExt = path3.extname(filePath).toUpperCase();
             if (extensions.some((validExt) => validExt.toUpperCase() === upperExt)) {
               return filePath;
             }
@@ -171,11 +171,11 @@ var require_io_util = __commonJS({
           if (stats && stats.isFile()) {
             if (exports.IS_WINDOWS) {
               try {
-                const directory = path2.dirname(filePath);
-                const upperName = path2.basename(filePath).toUpperCase();
+                const directory = path3.dirname(filePath);
+                const upperName = path3.basename(filePath).toUpperCase();
                 for (const actualName of yield exports.readdir(directory)) {
                   if (upperName === actualName.toUpperCase()) {
-                    filePath = path2.join(directory, actualName);
+                    filePath = path3.join(directory, actualName);
                     break;
                   }
                 }
@@ -276,7 +276,7 @@ var require_io = __commonJS({
     exports.findInPath = exports.which = exports.mkdirP = exports.rmRF = exports.mv = exports.cp = void 0;
     var assert_1 = require("assert");
     var childProcess = __importStar(require("child_process"));
-    var path2 = __importStar(require("path"));
+    var path3 = __importStar(require("path"));
     var util_1 = require("util");
     var ioUtil = __importStar(require_io_util());
     var exec3 = util_1.promisify(childProcess.exec);
@@ -288,7 +288,7 @@ var require_io = __commonJS({
         if (destStat && destStat.isFile() && !force) {
           return;
         }
-        const newDest = destStat && destStat.isDirectory() && copySourceDirectory ? path2.join(dest, path2.basename(source)) : dest;
+        const newDest = destStat && destStat.isDirectory() && copySourceDirectory ? path3.join(dest, path3.basename(source)) : dest;
         if (!(yield ioUtil.exists(source))) {
           throw new Error(`no such file or directory: ${source}`);
         }
@@ -300,7 +300,7 @@ var require_io = __commonJS({
             yield cpDirRecursive(source, newDest, 0, force);
           }
         } else {
-          if (path2.relative(source, newDest) === "") {
+          if (path3.relative(source, newDest) === "") {
             throw new Error(`'${newDest}' and '${source}' are the same file`);
           }
           yield copyFile(source, newDest, force);
@@ -313,7 +313,7 @@ var require_io = __commonJS({
         if (yield ioUtil.exists(dest)) {
           let destExists = true;
           if (yield ioUtil.isDirectory(dest)) {
-            dest = path2.join(dest, path2.basename(source));
+            dest = path3.join(dest, path3.basename(source));
             destExists = yield ioUtil.exists(dest);
           }
           if (destExists) {
@@ -324,7 +324,7 @@ var require_io = __commonJS({
             }
           }
         }
-        yield mkdirP(path2.dirname(dest));
+        yield mkdirP(path3.dirname(dest));
         yield ioUtil.rename(source, dest);
       });
     }
@@ -412,7 +412,7 @@ var require_io = __commonJS({
         }
         const extensions = [];
         if (ioUtil.IS_WINDOWS && process.env["PATHEXT"]) {
-          for (const extension of process.env["PATHEXT"].split(path2.delimiter)) {
+          for (const extension of process.env["PATHEXT"].split(path3.delimiter)) {
             if (extension) {
               extensions.push(extension);
             }
@@ -425,12 +425,12 @@ var require_io = __commonJS({
           }
           return [];
         }
-        if (tool.includes(path2.sep)) {
+        if (tool.includes(path3.sep)) {
           return [];
         }
         const directories = [];
         if (process.env.PATH) {
-          for (const p of process.env.PATH.split(path2.delimiter)) {
+          for (const p of process.env.PATH.split(path3.delimiter)) {
             if (p) {
               directories.push(p);
             }
@@ -438,7 +438,7 @@ var require_io = __commonJS({
         }
         const matches = [];
         for (const directory of directories) {
-          const filePath = yield ioUtil.tryGetExecutablePath(path2.join(directory, tool), extensions);
+          const filePath = yield ioUtil.tryGetExecutablePath(path3.join(directory, tool), extensions);
           if (filePath) {
             matches.push(filePath);
           }
@@ -559,7 +559,7 @@ var require_toolrunner = __commonJS({
     var os = __importStar(require("os"));
     var events = __importStar(require("events"));
     var child = __importStar(require("child_process"));
-    var path2 = __importStar(require("path"));
+    var path3 = __importStar(require("path"));
     var io = __importStar(require_io());
     var ioUtil = __importStar(require_io_util());
     var timers_1 = require("timers");
@@ -765,7 +765,7 @@ var require_toolrunner = __commonJS({
       exec() {
         return __awaiter(this, void 0, void 0, function* () {
           if (!ioUtil.isRooted(this.toolPath) && (this.toolPath.includes("/") || IS_WINDOWS && this.toolPath.includes("\\"))) {
-            this.toolPath = path2.resolve(process.cwd(), this.options.cwd || process.cwd(), this.toolPath);
+            this.toolPath = path3.resolve(process.cwd(), this.options.cwd || process.cwd(), this.toolPath);
           }
           this.toolPath = yield io.which(this.toolPath, true);
           return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
@@ -1103,8 +1103,8 @@ var require_context = __commonJS({
           if (fs_1.existsSync(process.env.GITHUB_EVENT_PATH)) {
             this.payload = JSON.parse(fs_1.readFileSync(process.env.GITHUB_EVENT_PATH, { encoding: "utf8" }));
           } else {
-            const path2 = process.env.GITHUB_EVENT_PATH;
-            process.stdout.write(`GITHUB_EVENT_PATH ${path2} does not exist${os_1.EOL}`);
+            const path3 = process.env.GITHUB_EVENT_PATH;
+            process.stdout.write(`GITHUB_EVENT_PATH ${path3} does not exist${os_1.EOL}`);
           }
         }
         this.eventName = process.env.GITHUB_EVENT_NAME;
@@ -3164,14 +3164,14 @@ var require_url_state_machine = __commonJS({
       return url.replace(/\u0009|\u000A|\u000D/g, "");
     }
     function shortenPath(url) {
-      const path2 = url.path;
-      if (path2.length === 0) {
+      const path3 = url.path;
+      if (path3.length === 0) {
         return;
       }
-      if (url.scheme === "file" && path2.length === 1 && isNormalizedWindowsDriveLetter(path2[0])) {
+      if (url.scheme === "file" && path3.length === 1 && isNormalizedWindowsDriveLetter(path3[0])) {
         return;
       }
-      path2.pop();
+      path3.pop();
     }
     function includesCredentials(url) {
       return url.username !== "" || url.password !== "";
@@ -7481,7 +7481,7 @@ var require_core = __commonJS({
     var file_command_1 = require_file_command();
     var utils_1 = require_utils4();
     var os = __importStar(require("os"));
-    var path2 = __importStar(require("path"));
+    var path3 = __importStar(require("path"));
     var oidc_utils_1 = require_oidc_utils();
     var ExitCode;
     (function(ExitCode2) {
@@ -7512,7 +7512,7 @@ var require_core = __commonJS({
       } else {
         command_1.issueCommand("add-path", {}, inputPath);
       }
-      process.env["PATH"] = `${inputPath}${path2.delimiter}${process.env["PATH"]}`;
+      process.env["PATH"] = `${inputPath}${path3.delimiter}${process.env["PATH"]}`;
     }
     exports.addPath = addPath;
     function getInput2(name, options) {
@@ -7858,9 +7858,9 @@ var require_minimatch = __commonJS({
   "node_modules/minimatch/minimatch.js"(exports, module2) {
     module2.exports = minimatch2;
     minimatch2.Minimatch = Minimatch;
-    var path2 = { sep: "/" };
+    var path3 = { sep: "/" };
     try {
-      path2 = require("path");
+      path3 = require("path");
     } catch (er) {
     }
     var GLOBSTAR = minimatch2.GLOBSTAR = Minimatch.GLOBSTAR = {};
@@ -7943,8 +7943,8 @@ var require_minimatch = __commonJS({
       if (!options)
         options = {};
       pattern = pattern.trim();
-      if (path2.sep !== "/") {
-        pattern = pattern.split(path2.sep).join("/");
+      if (path3.sep !== "/") {
+        pattern = pattern.split(path3.sep).join("/");
       }
       this.options = options;
       this.set = [];
@@ -8311,8 +8311,8 @@ var require_minimatch = __commonJS({
       if (f === "/" && partial)
         return true;
       var options = this.options;
-      if (path2.sep !== "/") {
-        f = f.split(path2.sep).join("/");
+      if (path3.sep !== "/") {
+        f = f.split(path3.sep).join("/");
       }
       f = f.split(slashSplit);
       this.debug(this.pattern, "split", f);
@@ -8568,18 +8568,18 @@ var require_read_package_json_fast = __commonJS({
     var readdir = promisify(fs2.readdir);
     var parse = require_json_parse_even_better_errors();
     var { resolve, dirname, join, relative } = require("path");
-    var rpj = (path2) => readFile(path2, "utf8").then((data) => readBinDir(path2, normalize(stripUnderscores(parse(data))))).catch((er) => {
-      er.path = path2;
+    var rpj = (path3) => readFile(path3, "utf8").then((data) => readBinDir(path3, normalize(stripUnderscores(parse(data))))).catch((er) => {
+      er.path = path3;
       throw er;
     });
     var normalizePackageBin = require_npm_normalize_package_bin();
-    var readBinDir = async (path2, data) => {
+    var readBinDir = async (path3, data) => {
       if (data.bin)
         return data;
       const m = data.directories && data.directories.bin;
       if (!m || typeof m !== "string")
         return data;
-      const root = dirname(path2);
+      const root = dirname(path3);
       const dir = join(".", join("/", m));
       data.bin = await walkBinDir(root, dir, {});
       return data;
@@ -8991,12 +8991,12 @@ var require_inherits = __commonJS({
 var require_path_is_absolute = __commonJS({
   "node_modules/path-is-absolute/index.js"(exports, module2) {
     "use strict";
-    function posix(path2) {
-      return path2.charAt(0) === "/";
+    function posix(path3) {
+      return path3.charAt(0) === "/";
     }
-    function win32(path2) {
+    function win32(path3) {
       var splitDeviceRe = /^([a-zA-Z]:|[\\\/]{2}[^\\\/]+[\\\/]+[^\\\/]+)?([\\\/])?([\s\S]*?)$/;
-      var result = splitDeviceRe.exec(path2);
+      var result = splitDeviceRe.exec(path3);
       var device = result[1] || "";
       var isUnc = Boolean(device && device.charAt(1) !== ":");
       return Boolean(result[2] || isUnc);
@@ -9021,7 +9021,7 @@ var require_common = __commonJS({
       return Object.prototype.hasOwnProperty.call(obj, field);
     }
     var fs2 = require("fs");
-    var path2 = require("path");
+    var path3 = require("path");
     var minimatch2 = require_minimatch();
     var isAbsolute = require_path_is_absolute();
     var Minimatch = minimatch2.Minimatch;
@@ -9086,11 +9086,11 @@ var require_common = __commonJS({
       if (!ownProp(options, "cwd"))
         self.cwd = cwd;
       else {
-        self.cwd = path2.resolve(options.cwd);
+        self.cwd = path3.resolve(options.cwd);
         self.changedCwd = self.cwd !== cwd;
       }
-      self.root = options.root || path2.resolve(self.cwd, "/");
-      self.root = path2.resolve(self.root);
+      self.root = options.root || path3.resolve(self.cwd, "/");
+      self.root = path3.resolve(self.root);
       if (process.platform === "win32")
         self.root = self.root.replace(/\\/g, "/");
       self.cwdAbs = isAbsolute(self.cwd) ? self.cwd : makeAbs(self, self.cwd);
@@ -9171,30 +9171,30 @@ var require_common = __commonJS({
     function makeAbs(self, f) {
       var abs = f;
       if (f.charAt(0) === "/") {
-        abs = path2.join(self.root, f);
+        abs = path3.join(self.root, f);
       } else if (isAbsolute(f) || f === "") {
         abs = f;
       } else if (self.changedCwd) {
-        abs = path2.resolve(self.cwd, f);
+        abs = path3.resolve(self.cwd, f);
       } else {
-        abs = path2.resolve(f);
+        abs = path3.resolve(f);
       }
       if (process.platform === "win32")
         abs = abs.replace(/\\/g, "/");
       return abs;
     }
-    function isIgnored(self, path3) {
+    function isIgnored(self, path4) {
       if (!self.ignore.length)
         return false;
       return self.ignore.some(function(item) {
-        return item.matcher.match(path3) || !!(item.gmatcher && item.gmatcher.match(path3));
+        return item.matcher.match(path4) || !!(item.gmatcher && item.gmatcher.match(path4));
       });
     }
-    function childrenIgnored(self, path3) {
+    function childrenIgnored(self, path4) {
       if (!self.ignore.length)
         return false;
       return self.ignore.some(function(item) {
-        return !!(item.gmatcher && item.gmatcher.match(path3));
+        return !!(item.gmatcher && item.gmatcher.match(path4));
       });
     }
   }
@@ -9210,7 +9210,7 @@ var require_sync = __commonJS({
     var Minimatch = minimatch2.Minimatch;
     var Glob = require_glob().Glob;
     var util = require("util");
-    var path2 = require("path");
+    var path3 = require("path");
     var assert = require("assert");
     var isAbsolute = require_path_is_absolute();
     var common = require_common();
@@ -9336,7 +9336,7 @@ var require_sync = __commonJS({
               e = prefix + e;
           }
           if (e.charAt(0) === "/" && !this.nomount) {
-            e = path2.join(this.root, e);
+            e = path3.join(this.root, e);
           }
           this._emitMatch(index, e);
         }
@@ -9485,9 +9485,9 @@ var require_sync = __commonJS({
       if (prefix && isAbsolute(prefix) && !this.nomount) {
         var trail = /[\/\\]$/.test(prefix);
         if (prefix.charAt(0) === "/") {
-          prefix = path2.join(this.root, prefix);
+          prefix = path3.join(this.root, prefix);
         } else {
-          prefix = path2.resolve(this.root, prefix);
+          prefix = path3.resolve(this.root, prefix);
           if (trail)
             prefix += "/";
         }
@@ -9606,7 +9606,7 @@ var require_glob = __commonJS({
     var Minimatch = minimatch2.Minimatch;
     var inherits = require_inherits();
     var EE = require("events").EventEmitter;
-    var path2 = require("path");
+    var path3 = require("path");
     var assert = require("assert");
     var isAbsolute = require_path_is_absolute();
     var globSync = require_sync();
@@ -9887,7 +9887,7 @@ var require_glob = __commonJS({
               e = prefix + e;
           }
           if (e.charAt(0) === "/" && !this.nomount) {
-            e = path2.join(this.root, e);
+            e = path3.join(this.root, e);
           }
           this._emitMatch(index, e);
         }
@@ -10074,9 +10074,9 @@ var require_glob = __commonJS({
       if (prefix && isAbsolute(prefix) && !this.nomount) {
         var trail = /[\/\\]$/.test(prefix);
         if (prefix.charAt(0) === "/") {
-          prefix = path2.join(this.root, prefix);
+          prefix = path3.join(this.root, prefix);
         } else {
-          prefix = path2.resolve(this.root, prefix);
+          prefix = path3.resolve(this.root, prefix);
           if (trail)
             prefix += "/";
         }
@@ -10154,7 +10154,7 @@ var require_glob = __commonJS({
 var require_lib3 = __commonJS({
   "node_modules/@npmcli/map-workspaces/lib/index.js"(exports, module2) {
     var { promisify } = require("util");
-    var path2 = require("path");
+    var path3 = require("path");
     var getName = require_name_from_folder();
     var minimatch2 = require_minimatch();
     var rpj = require_read_package_json_fast();
@@ -10190,7 +10190,7 @@ var require_lib3 = __commonJS({
     function pkgPathmame(opts) {
       return (...args) => {
         const cwd = opts.cwd ? opts.cwd : process.cwd();
-        return path2.join.apply(null, [cwd, ...args]);
+        return path3.join.apply(null, [cwd, ...args]);
       };
     }
     function getGlobPattern(pattern) {
@@ -10228,7 +10228,7 @@ var require_lib3 = __commonJS({
         for (const match of matches) {
           let pkg;
           const packageJsonPathname = getPackagePathname(match, "package.json");
-          const packagePathname = path2.dirname(packageJsonPathname);
+          const packagePathname = path3.dirname(packageJsonPathname);
           try {
             pkg = await rpj(packageJsonPathname);
           } catch (err) {
@@ -10321,8 +10321,10 @@ var import_core2 = __toESM(require_core());
 var import_core = __toESM(require_core());
 var import_map_workspaces = __toESM(require_lib3());
 var import_fs = __toESM(require("fs"));
+var import_path = __toESM(require("path"));
 var getWorkspaces = async () => {
-  const configSource = await import_fs.default.promises.readFile("package.json", { encoding: "utf-8" });
+  const packagePath = (0, import_core.getInput)("package-path");
+  const configSource = await import_fs.default.promises.readFile(import_path.default.join(packagePath, "package.json"), { encoding: "utf-8" });
   const parsedConfig = JSON.parse(configSource);
   const workspaces = (0, import_core.getInput)("workspaces");
   if (workspaces) {
@@ -10342,7 +10344,7 @@ var getWorkspaces = async () => {
 
 // src/run.ts
 var import_minimatch = __toESM(require_minimatch());
-var import_path = __toESM(require("path"));
+var import_path2 = __toESM(require("path"));
 
 // src/getRootDirectory.ts
 var import_exec2 = __toESM(require_exec());
@@ -10350,8 +10352,8 @@ var getRootDirectory = async () => {
   let res = "";
   await (0, import_exec2.exec)("git", ["rev-parse", "--show-toplevel"], {
     listeners: {
-      stdline: (path2) => {
-        res = path2;
+      stdline: (path3) => {
+        res = path3;
       }
     }
   });
@@ -10362,7 +10364,7 @@ var getRootDirectory = async () => {
 var run = async () => {
   const output = [];
   const gitRoot = await getRootDirectory();
-  const changedFiles = (await getChangedFiles()).map((file) => import_path.default.join(gitRoot, file));
+  const changedFiles = (await getChangedFiles()).map((file) => import_path2.default.join(gitRoot, file));
   console.log(changedFiles);
   const workspaces = await getWorkspaces();
   workspaces.forEach((workspace, name) => {

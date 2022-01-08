@@ -1,9 +1,11 @@
 import { getInput } from "@actions/core";
 import mapWorkspaces from "@npmcli/map-workspaces";
 import fs from "fs";
+import path from "path";
 
 export const getWorkspaces = async (): Promise<Map<string, string>> => {
-    const configSource = await fs.promises.readFile("package.json", { encoding: "utf-8" });
+    const packagePath = getInput("package-path");
+    const configSource = await fs.promises.readFile(path.join(packagePath, "package.json"), { encoding: "utf-8" });
     const parsedConfig = JSON.parse(configSource);
     const workspaces = getInput("workspaces");
 
