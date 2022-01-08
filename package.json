@@ -7,7 +7,9 @@
         "build:dev": "esbuild src/index.ts --bundle --target=node16 --outfile=dist/index.js --platform=node",
         "dev": "npm run build:dev -- --watch",
         "test": "jest",
-        "test:watch": "jest --watch"
+        "test:watch": "jest --watch",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix"
     },
     "keywords": [],
     "author": "Aleksandras Šukelovič",
@@ -16,8 +18,15 @@
         "@types/jest": "^27.4.0",
         "@types/minimatch": "^3.0.5",
         "@types/node": "^17.0.8",
+        "@typescript-eslint/eslint-plugin": "^5.9.0",
+        "@typescript-eslint/parser": "^5.9.0",
         "esbuild": "^0.14.10",
+        "eslint": "^8.6.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "eslint-plugin-simple-import-sort": "^7.0.0",
         "jest": "^27.4.7",
+        "prettier": "^2.5.1",
         "ts-jest": "^27.1.2",
         "typescript": "^4.5.4"
     },

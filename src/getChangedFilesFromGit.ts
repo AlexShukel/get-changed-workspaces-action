@@ -1,4 +1,5 @@
 import { exec } from "@actions/exec";
+
 import { FETCH_HEAD } from "./constants";
 
 export const getChangedFilesFromGit = async (ref: string): Promise<string[]> => {
