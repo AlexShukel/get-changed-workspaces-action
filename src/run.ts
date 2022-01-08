@@ -17,5 +17,6 @@ export const run = async () => {
         }
     });
 
+    console.log(output);
     setOutput("changed_workspaces", output);
 };

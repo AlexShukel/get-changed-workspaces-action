@@ -10408,6 +10408,7 @@ var run = async () => {
       output.push(name);
     }
   });
+  console.log(output);
   (0, import_core3.setOutput)("changed_workspaces", output);
 };
 
