@@ -1,7 +1,8 @@
-import { getInput } from "@actions/core";
-import mapWorkspaces from "@npmcli/map-workspaces";
 import fs from "fs";
 import path from "path";
+
+import { getInput } from "@actions/core";
+import mapWorkspaces from "@npmcli/map-workspaces";
 
 export const getWorkspaces = async (): Promise<Map<string, string>> => {
     const packageDirPath = getInput("package-path");

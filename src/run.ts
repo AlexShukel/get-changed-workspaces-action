@@ -1,9 +1,11 @@
 import path from "path";
-import minimatch from "minimatch";
-import { getChangedFiles } from "./getChangedFiles";
+
 import { setOutput } from "@actions/core";
-import { getWorkspaces } from "./getWorkspaces";
+import minimatch from "minimatch";
+
+import { getChangedFiles } from "./getChangedFiles";
 import { getRootDirectory } from "./getRootDirectory";
+import { getWorkspaces } from "./getWorkspaces";
 
 export const run = async () => {
     const output: string[] = [];

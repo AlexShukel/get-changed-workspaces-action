@@ -1,8 +1,9 @@
-import { context } from "@actions/github";
 import { getInput } from "@actions/core";
-import { isSameBranch } from "./isSameBranch";
-import { getChangedFilesFromGit } from "./getChangedFilesFromGit";
+import { context } from "@actions/github";
+
 import { NULL_SHA } from "./constants";
+import { getChangedFilesFromGit } from "./getChangedFilesFromGit";
+import { isSameBranch } from "./isSameBranch";
 
 export const getChangedFiles = async (): Promise<string[]> => {
     if (context.eventName === "pull_request") {
