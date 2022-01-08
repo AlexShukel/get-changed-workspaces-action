@@ -5,7 +5,7 @@ export const getChangedFilesFromGit = async (ref: string): Promise<string[]> => 
 
     await exec("git", ["fetch", "--all"]);
 
-    await exec("git", ["pull", "-all"]);
+    await exec("git", ["pull", "--all"]);
 
     await exec("git", ["diff", "--name-only", ref], {
         listeners: {
