@@ -10203,7 +10203,6 @@ var require_lib3 = __commonJS({
       return new Map(Array.from(map, (item) => item.reverse()));
     }
     async function mapWorkspaces2(opts = {}) {
-      console.log("Executing mapWorkspaces...", opts);
       if (!opts || !opts.pkg) {
         throw getError({
           message: "mapWorkspaces missing pkg info",
@@ -10339,7 +10338,7 @@ var getWorkspaces = async () => {
   }
   const workspacesMap = await (0, import_map_workspaces.default)({
     pkg: parsedConfig,
-    cwd: packageJsonPath
+    cwd: packageDirPath
   });
   return workspacesMap;
 };

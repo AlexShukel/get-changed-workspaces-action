@@ -22,7 +22,7 @@ export const getWorkspaces = async (): Promise<Map<string, string>> => {
 
     const workspacesMap = await mapWorkspaces({
         pkg: parsedConfig,
-        cwd: packageJsonPath,
+        cwd: packageDirPath,
     });
 
     return workspacesMap;
