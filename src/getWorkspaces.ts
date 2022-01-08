@@ -4,8 +4,9 @@ import fs from "fs";
 import path from "path";
 
 export const getWorkspaces = async (): Promise<Map<string, string>> => {
-    const packagePath = getInput("package-path");
-    const configSource = await fs.promises.readFile(path.join(packagePath, "package.json"), { encoding: "utf-8" });
+    const packageDirPath = getInput("package-path");
+    const packageJsonPath = path.join(packageDirPath, "package.json");
+    const configSource = await fs.promises.readFile(packageJsonPath, { encoding: "utf-8" });
     const parsedConfig = JSON.parse(configSource);
     const workspaces = getInput("workspaces");
 
@@ -21,7 +22,7 @@ export const getWorkspaces = async (): Promise<Map<string, string>> => {
 
     const workspacesMap = await mapWorkspaces({
         pkg: parsedConfig,
-        cwd: process.cwd(),
+        cwd: packageJsonPath,
     });
 
     return workspacesMap;

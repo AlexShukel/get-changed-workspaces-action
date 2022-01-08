@@ -10323,8 +10323,9 @@ var import_map_workspaces = __toESM(require_lib3());
 var import_fs = __toESM(require("fs"));
 var import_path = __toESM(require("path"));
 var getWorkspaces = async () => {
-  const packagePath = (0, import_core.getInput)("package-path");
-  const configSource = await import_fs.default.promises.readFile(import_path.default.join(packagePath, "package.json"), { encoding: "utf-8" });
+  const packageDirPath = (0, import_core.getInput)("package-path");
+  const packageJsonPath = import_path.default.join(packageDirPath, "package.json");
+  const configSource = await import_fs.default.promises.readFile(packageJsonPath, { encoding: "utf-8" });
   const parsedConfig = JSON.parse(configSource);
   const workspaces = (0, import_core.getInput)("workspaces");
   if (workspaces) {
@@ -10337,7 +10338,7 @@ var getWorkspaces = async () => {
   }
   const workspacesMap = await (0, import_map_workspaces.default)({
     pkg: parsedConfig,
-    cwd: process.cwd()
+    cwd: packageJsonPath
   });
   return workspacesMap;
 };
