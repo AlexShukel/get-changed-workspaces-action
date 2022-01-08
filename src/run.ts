@@ -8,16 +8,20 @@ import { getRootDirectory } from "./getRootDirectory";
 import { getWorkspaces } from "./getWorkspaces";
 
 export const run = async () => {
-    const output: string[] = [];
     const gitRoot = await getRootDirectory();
     const changedFiles = (await getChangedFiles()).map((file) => path.join(gitRoot, file));
     const workspaces = await getWorkspaces();
 
+    const packagesNames: string[] = [];
+    const packagesPaths: string[] = [];
+
     workspaces.forEach((workspace, name) => {
         if (minimatch.match(changedFiles, path.join(process.cwd(), workspace, "**")).length > 0) {
-            output.push(name);
+            packagesNames.push(name);
+            packagesPaths.push(workspace);
         }
     });
 
-    setOutput("changed_workspaces", output);
+    setOutput("changed-packages-names", packagesNames);
+    setOutput("changed-packages-paths", packagesPaths);
 };
