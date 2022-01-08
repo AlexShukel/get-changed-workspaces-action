@@ -22,9 +22,6 @@ export const run = async () => {
         }
     });
 
-    console.log(packagesNames);
-    console.log(packagesPaths);
-
     setOutput("changed-packages-names", packagesNames);
     setOutput("changed-packages-paths", packagesPaths);
 };

@@ -10409,8 +10409,6 @@ var run = async () => {
       packagesPaths.push(workspace);
     }
   });
-  console.log(packagesNames);
-  console.log(packagesPaths);
   (0, import_core3.setOutput)("changed-packages-names", packagesNames);
   (0, import_core3.setOutput)("changed-packages-paths", packagesPaths);
 };
