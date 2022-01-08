@@ -10404,12 +10404,8 @@ var run = async () => {
   const changedFiles = (await getChangedFiles()).map((file) => import_path2.default.join(gitRoot, file));
   const workspaces = await getWorkspaces();
   workspaces.forEach((workspace, name) => {
-    console.group();
-    console.log(workspace);
-    console.log(changedFiles);
-    console.log(import_minimatch.default.match(changedFiles, `${workspace}/**`));
-    console.groupEnd();
-    if (import_minimatch.default.match(changedFiles, `${workspace}/**`).length > 0) {
+    console.log(import_path2.default.join(process.cwd(), workspace, "**"));
+    if (import_minimatch.default.match(changedFiles, import_path2.default.join(process.cwd(), workspace, "**")).length > 0) {
       output.push(name);
     }
   });
