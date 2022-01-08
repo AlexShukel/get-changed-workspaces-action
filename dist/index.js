@@ -10319,6 +10319,7 @@ var import_exec = __toESM(require_exec());
 var getChangedFilesFromGit = async (ref) => {
   const result = [];
   await (0, import_exec.exec)("git", ["fetch", "--all"]);
+  await (0, import_exec.exec)("git", ["pull", "-all"]);
   await (0, import_exec.exec)("git", ["diff", "--name-only", ref], {
     listeners: {
       stdline: (data) => result.push(data)
