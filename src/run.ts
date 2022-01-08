@@ -12,11 +12,15 @@ export const run = async () => {
     const workspaces = await getWorkspaces();
 
     workspaces.forEach((workspace, name) => {
+        console.group();
+        console.log(workspace);
+        console.log(changedFiles);
+        console.log(minimatch.match(changedFiles, `${workspace}/**`));
+        console.groupEnd();
         if (minimatch.match(changedFiles, `${workspace}/**`).length > 0) {
             output.push(name);
         }
     });
 
-    console.log(output);
     setOutput("changed_workspaces", output);
 };
