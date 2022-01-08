@@ -9,6 +9,10 @@ inputs:
     workspaces:
         description: Paths where to get changed workspaces
         required: false
+    package-path:
+        description: Path to root package.json directory
+        required: false
+        default: "."
 outputs:
     changed_workspaces:
         description: Array of changed workspaces
