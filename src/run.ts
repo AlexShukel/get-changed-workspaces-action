@@ -26,6 +26,8 @@ export const run = async () => {
         }
     });
 
+    console.log(names, paths);
+
     setOutput("names", names);
     setOutput("paths", paths);
     setOutput("empty", names.length === 0);
