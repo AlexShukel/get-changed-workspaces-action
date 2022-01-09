@@ -5,11 +5,11 @@ export const getRootDirectory = async () => {
 
     await exec("git", ["rev-parse", "--show-toplevel"], {
         listeners: {
-            stdline: (path) => {
-                res = path;
+            stdout: (path) => {
+                res += path.toString();
             },
         },
     });
 
-    return res;
+    return res.trim();
 };

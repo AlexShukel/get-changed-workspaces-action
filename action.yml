@@ -11,15 +11,16 @@ inputs:
     workspaces:
         description: Paths where to get changed workspaces
         required: false
-    package-path:
-        description: Path to root package.json directory
+    working-directory:
+        description: Path to the directory that contains root package.json of monorepo
         required: false
-        default: "."
 outputs:
     names:
         description: Array of changed workspaces package.json names
     paths:
         description: Array of changed workspaces paths
+    empty:
+        description: Boolean that indicates if there was any changed packages
 
 runs:
     using: node16
