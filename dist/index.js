@@ -10397,12 +10397,9 @@ var run = async () => {
   const gitRoot = await getRootDirectory();
   const changedFiles = (await getChangedFiles()).map((file) => import_path2.default.join(gitRoot, file));
   const workspaces = await getWorkspaces();
-  console.log(changedFiles);
-  console.log(workspaces);
   const names = [];
   const paths = [];
   workspaces.forEach((workspace, name) => {
-    console.log(workspace, name, import_path2.default.join(process.cwd(), workspace, "**"), import_minimatch.default.match(changedFiles, import_path2.default.join(process.cwd(), workspace, "**")));
     if (import_minimatch.default.match(changedFiles, import_path2.default.join(workspace, "**"), {
       dot: true
     }).length > 0) {
@@ -10410,7 +10407,6 @@ var run = async () => {
       paths.push(workspace);
     }
   });
-  console.log(names);
   (0, import_core3.setOutput)("names", names);
   (0, import_core3.setOutput)("paths", paths);
   (0, import_core3.setOutput)("empty", names.length === 0);
