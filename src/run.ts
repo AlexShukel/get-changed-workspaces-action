@@ -25,7 +25,7 @@ export const run = async () => {
             path.join(process.cwd(), workspace, "**"),
             minimatch.match(changedFiles, path.join(process.cwd(), workspace, "**"))
         );
-        if (minimatch.match(changedFiles, path.join(process.cwd(), workspace, "**")).length > 0) {
+        if (minimatch.match(changedFiles, path.join(workspace, "**")).length > 0) {
             names.push(name);
             paths.push(workspace);
         }

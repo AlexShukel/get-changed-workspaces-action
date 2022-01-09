@@ -10403,7 +10403,7 @@ var run = async () => {
   const paths = [];
   workspaces.forEach((workspace, name) => {
     console.log(workspace, name, import_path2.default.join(process.cwd(), workspace, "**"), import_minimatch.default.match(changedFiles, import_path2.default.join(process.cwd(), workspace, "**")));
-    if (import_minimatch.default.match(changedFiles, import_path2.default.join(process.cwd(), workspace, "**")).length > 0) {
+    if (import_minimatch.default.match(changedFiles, import_path2.default.join(workspace, "**")).length > 0) {
       names.push(name);
       paths.push(workspace);
     }
