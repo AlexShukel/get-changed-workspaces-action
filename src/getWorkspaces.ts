@@ -5,7 +5,7 @@ import { getInput } from "@actions/core";
 import mapWorkspaces from "@npmcli/map-workspaces";
 
 export const getWorkspaces = async (): Promise<Map<string, string>> => {
-    const packageDirPath = getInput("package-path");
+    const packageDirPath = getInput("working-directory") || process.cwd();
     const packageJsonPath = path.join(packageDirPath, "package.json");
     const configSource = await fs.promises.readFile(packageJsonPath, { encoding: "utf-8" });
     const parsedConfig = JSON.parse(configSource);
