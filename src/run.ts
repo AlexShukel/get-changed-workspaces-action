@@ -10,13 +10,13 @@ import { getWorkspaces } from "./getWorkspaces";
 export const run = async () => {
     const gitRoot = await getRootDirectory();
     const changedFiles = (await getChangedFiles()).map((file) => path.join(gitRoot, file));
+    console.log(changedFiles);
     const workspaces = await getWorkspaces();
 
     const names: string[] = [];
     const paths: string[] = [];
 
     workspaces.forEach((workspace, name) => {
-        console.log(workspace, minimatch.match(changedFiles, path.join(process.cwd(), workspace, "**")));
         if (
             minimatch.match(changedFiles, path.join(process.cwd(), workspace, "**"), {
                 dot: true,
