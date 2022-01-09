@@ -25,12 +25,11 @@ jobs:
         steps:
             - uses: actions/checkout@v2
             - name: Find changed workspaces
-              uses: AlexShukel/get-changed-workspaces-action@main
+              uses: AlexShukel/get-changed-workspaces-action@v1.0.0
               id: changed-packages
     build:
         runs-on: ubuntu-latest
         needs: [get-changed-workspaces]
-        if: fromJson(needs.get-changed-workspaces.outputs.empty)
         strategy:
             matrix:
                 name: ${{ fromJson(needs.get-changed-workspaces.outputs.names) }}
@@ -45,8 +44,8 @@ jobs:
 
 This action can handle 2 types of events:
 
--   `pull_request` - action will compare `current` branch with `target` branch of pull request
--   `push` - by default action will compare a commit `before` push event occured with `current` commit. You can pass `base-ref` input to make another comparison (for example, with main branch)
+-   `pull_request` - action will compare `current` branch with `target` branch of pull request.
+-   `push` - by default action will compare a commit `before` push event occured with `current` commit. You can pass `base-ref` input to make another comparison (for example, with main branch).
 
 ## Action inputs
 
@@ -58,7 +57,7 @@ This input is an alternative to the property of `package.json`. It should be sim
 Example:
 
 ```yml
-- uses: AlexShukel/get-changed-workspaces-action@main
+- uses: AlexShukel/get-changed-workspaces-action@v1.0.0
   with:
       workspaces: |
           packages/*
@@ -72,7 +71,7 @@ This input is required when your monorepo is located in different directory than
 Example:
 
 ```yml
-- uses: AlexShukel/get-changed-workspaces-action@main
+- uses: AlexShukel/get-changed-workspaces-action@v1.0.0
   with:
       working-directory: ./app/frontend
 ```
@@ -83,7 +82,7 @@ This input affects execution only when `push` event occurs. You can specify targ
 Example:
 
 ```yml
-- uses: AlexShukel/get-changed-workspaces-action@main
+- uses: AlexShukel/get-changed-workspaces-action@v1.0.0
   with:
       base-ref: main
 ```
@@ -102,7 +101,7 @@ If you want to use it in action [matrix](https://docs.github.com/en/actions/lear
 
 ### paths
 
-The paths to the changed packages. Provided as JSON string.
+Paths to changed packages. Provided as JSON string.
 
 Example: "['packages/core', 'packages/react', 'packages/svelte']"
 
@@ -112,7 +111,7 @@ If you want to use it in action [matrix](https://docs.github.com/en/actions/lear
 
 Boolean that indicates if there was any changed packages. Provided as JSON string.
 
-For example, if you want to skip workflow when there was no changed packages, you can use this configuration:
+For example, if you want to skip a job when there was no changed packages, you can use this configuration:
 
 ```yml
 generate_matrix:
@@ -126,9 +125,10 @@ generate_matrix:
 
         - name: Find changed packages
           id: changed_packages
-          uses: alexshukel/get-changed-workspaces-action@main
+          uses: alexshukel/get-changed-workspaces-action@v1.0.0
 build:
     name: Build
+    # Skip build job if there wasn't any changed packages
     if: ${{ !fromJson(needs.generate_matrix.outputs.empty) }}
 ```
 
