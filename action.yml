@@ -2,18 +2,18 @@ name: Get changed workspaces
 description: A github action that gets changed workspaces
 author: Aleksandras Sukelovic <alex.shukel@gmail.com>
 inputs:
-    base-ref:
-        description: |
-            Git base reference (branch name or a commit hash). The change list will be compared to the base if
-            push event occurs. Will default to the last commit of the current branch
-        required: false
-        default: ${{ github.ref }}
     workspaces:
         description: Paths where to get changed workspaces
         required: false
     working-directory:
         description: Path to the directory that contains root package.json of monorepo
         required: false
+    base-ref:
+        description: |
+            Git base reference (branch name or a commit hash). The change list will be compared to the base if
+            push event occurs. Will default to the last commit of the current branch
+        required: false
+        default: ${{ github.ref }}
 outputs:
     names:
         description: Array of changed workspaces package.json names
