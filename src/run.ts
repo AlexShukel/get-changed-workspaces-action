@@ -16,6 +16,12 @@ export const run = async () => {
     const paths: string[] = [];
 
     workspaces.forEach((workspace, name) => {
+        console.log(
+            workspace,
+            minimatch.match(changedFiles, path.join(process.cwd(), workspace, "**"), {
+                dot: true,
+            })
+        );
         if (
             minimatch.match(changedFiles, path.join(process.cwd(), workspace, "**"), {
                 dot: true,
@@ -25,8 +31,6 @@ export const run = async () => {
             paths.push(workspace);
         }
     });
-
-    console.log(names, paths);
 
     setOutput("names", names);
     setOutput("paths", paths);

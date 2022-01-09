@@ -10400,6 +10400,9 @@ var run = async () => {
   const names = [];
   const paths = [];
   workspaces.forEach((workspace, name) => {
+    console.log(workspace, import_minimatch.default.match(changedFiles, import_path2.default.join(process.cwd(), workspace, "**"), {
+      dot: true
+    }));
     if (import_minimatch.default.match(changedFiles, import_path2.default.join(process.cwd(), workspace, "**"), {
       dot: true
     }).length > 0) {
@@ -10407,7 +10410,6 @@ var run = async () => {
       paths.push(workspace);
     }
   });
-  console.log(names, paths);
   (0, import_core3.setOutput)("names", names);
   (0, import_core3.setOutput)("paths", paths);
   (0, import_core3.setOutput)("empty", names.length === 0);
