@@ -13,7 +13,7 @@
     },
     "keywords": [],
     "author": "Aleksandras Šukelovič",
-    "license": "ISC",
+    "license": "MIT",
     "devDependencies": {
         "@types/jest": "^27.4.0",
         "@types/minimatch": "^3.0.5",
