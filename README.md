@@ -110,7 +110,27 @@ If you want to use it in action [matrix](https://docs.github.com/en/actions/lear
 
 ### empty
 
-Boolean that indicates if there was any changed packages.
+Boolean that indicates if there was any changed packages. Provided as JSON string.
+
+For example, if you want to skip workflow when there was no changed packages, you can use this configuration:
+
+```yml
+generate_matrix:
+    name: Get changed packages
+    runs-on: ubuntu-latest
+    outputs:
+        empty: ${{ steps.changed_packages.outputs.empty }}
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+
+        - name: Find changed packages
+          id: changed_packages
+          uses: alexshukel/get-changed-workspaces-action@main
+build:
+    name: Build
+    if: ${{ !fromJson(needs.generate_matrix.outputs.empty) }}
+```
 
 ## License
 
