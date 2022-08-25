@@ -8,6 +8,7 @@ import { getRootDirectory } from "./getRootDirectory";
 import { getWorkspaces } from "./getWorkspaces";
 
 export const run = async () => {
+    console.log("Running get-changed-workspaces-action");
     const gitRoot = await getRootDirectory();
     const changedFiles = (await getChangedFiles()).map((file) => path.join(gitRoot, file));
     const workspaces = await getWorkspaces();
