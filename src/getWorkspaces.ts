@@ -9,11 +9,12 @@ export const getWorkspaces = async (): Promise<Map<string, string>> => {
     const packageDirPath = getInput("working-directory") || process.cwd();
 
     const pnpmWorkspacesPath = path.join(packageDirPath, "pnpm-workspace.yaml");
+    console.log("hello1", pnpmWorkspacesPath);
     if (fs.existsSync(pnpmWorkspacesPath)) {
         const fileSource = await fs.promises.readFile(pnpmWorkspacesPath, { encoding: "utf-8" });
         const workspaces = yaml.load(fileSource);
 
-        console.log(workspaces);
+        console.log("hello2", workspaces);
     }
 
     const packageJsonPath = path.join(packageDirPath, "package.json");
