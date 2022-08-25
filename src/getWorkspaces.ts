@@ -3,9 +3,19 @@ import path from "path";
 
 import { getInput } from "@actions/core";
 import mapWorkspaces from "@npmcli/map-workspaces";
+import yaml from "js-yaml";
 
 export const getWorkspaces = async (): Promise<Map<string, string>> => {
     const packageDirPath = getInput("working-directory") || process.cwd();
+
+    const pnpmWorkspacesPath = path.join(packageDirPath, "pnpm-workspace.yaml");
+    if (fs.existsSync(pnpmWorkspacesPath)) {
+        const fileSource = await fs.promises.readFile(pnpmWorkspacesPath, { encoding: "utf-8" });
+        const workspaces = yaml.load(fileSource);
+
+        console.log(workspaces);
+    }
+
     const packageJsonPath = path.join(packageDirPath, "package.json");
     const configSource = await fs.promises.readFile(packageJsonPath, { encoding: "utf-8" });
     const parsedConfig = JSON.parse(configSource);
