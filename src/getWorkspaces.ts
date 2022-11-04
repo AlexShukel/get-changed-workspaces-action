@@ -17,11 +17,7 @@ const getPackageConfig = async (packageDirPath: string) => {
             const file = await fs.promises.readFile(pnpmWorkspacesPath);
             const pnpmWorkspacesConfig = parse(file.toString());
 
-            console.log("parsed pnpm-workspace.yaml:", pnpmWorkspacesConfig);
-
-            parsedConfig.workspaces = pnpmWorkspacesConfig;
-
-            console.log("Parsed config:", parsedConfig);
+            parsedConfig.workspaces = pnpmWorkspacesConfig.packages;
         }
     }
 
