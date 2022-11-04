@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-import { getInput } from "@actions/core";
+import { getInput, info } from "@actions/core";
 import mapWorkspaces from "@npmcli/map-workspaces";
 import { parse } from "yaml";
 
@@ -20,6 +20,8 @@ const getPackageConfig = async (packageDirPath: string) => {
             parsedConfig.workspaces = pnpmWorkspacesConfig.packages;
         }
     }
+
+    info(JSON.stringify(parsedConfig));
 
     return parsedConfig;
 };
