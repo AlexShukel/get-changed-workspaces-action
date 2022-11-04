@@ -18,12 +18,12 @@ export const run = async () => {
 
     const filterRegex = getInput("filter");
     Array.from(workspaces)
-        .filter(([, name]) => {
+        .filter(([name]) => {
             console.log(name, filterRegex, new RegExp(filterRegex).test(name));
 
             return new RegExp(filterRegex).test(name);
         })
-        .forEach(([workspacePath, name]) => {
+        .forEach(([name, workspacePath]) => {
             if (
                 minimatch.match(changedFiles, path.join(workspacePath, "**"), {
                     dot: true,

@@ -18161,10 +18161,10 @@ var run = async () => {
   const names = [];
   const paths = [];
   const filterRegex = (0, import_core3.getInput)("filter");
-  Array.from(workspaces).filter(([, name]) => {
+  Array.from(workspaces).filter(([name]) => {
     console.log(name, filterRegex, new RegExp(filterRegex).test(name));
     return new RegExp(filterRegex).test(name);
-  }).forEach(([workspacePath, name]) => {
+  }).forEach(([name, workspacePath]) => {
     if (import_minimatch.default.match(changedFiles, import_path2.default.join(workspacePath, "**"), {
       dot: true
     }).length > 0) {
