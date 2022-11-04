@@ -18161,7 +18161,7 @@ var run = async () => {
   const names = [];
   const paths = [];
   const filterRegex = (0, import_core3.getInput)("filter");
-  Array.from(workspaces).filter(([workspacePath]) => workspacePath.match(filterRegex)).forEach(([workspacePath, name]) => {
+  Array.from(workspaces).filter(([, name]) => name.match(filterRegex)).forEach(([workspacePath, name]) => {
     if (import_minimatch.default.match(changedFiles, import_path2.default.join(workspacePath, "**"), {
       dot: true
     }).length > 0) {

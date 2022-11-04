@@ -9,7 +9,7 @@ inputs:
         description: Path to the directory that contains root package.json of monorepo
         required: false
     filter:
-        description: Regex pattern to filter changed packages
+        description: Regex pattern to filter changed packages by name
         required: false
     base-ref:
         description: |

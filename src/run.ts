@@ -18,7 +18,7 @@ export const run = async () => {
 
     const filterRegex = getInput("filter");
     Array.from(workspaces)
-        .filter(([workspacePath]) => workspacePath.match(filterRegex))
+        .filter(([, name]) => name.match(filterRegex))
         .forEach(([workspacePath, name]) => {
             if (
                 minimatch.match(changedFiles, path.join(workspacePath, "**"), {
