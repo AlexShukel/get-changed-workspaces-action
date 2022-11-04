@@ -1,7 +1,7 @@
 import path from "path";
 
 import { getInput, setOutput } from "@actions/core";
-import minimatch, { filter } from "minimatch";
+import minimatch from "minimatch";
 
 import { getChangedFiles } from "./getChangedFiles";
 import { getRootDirectory } from "./getRootDirectory";
@@ -18,7 +18,11 @@ export const run = async () => {
 
     const filterRegex = getInput("filter");
     Array.from(workspaces)
-        .filter(([, name]) => name.match(filterRegex))
+        .filter(([, name]) => {
+            console.log(name, filterRegex, new RegExp(filterRegex).test(name));
+
+            return new RegExp(filterRegex).test(name);
+        })
         .forEach(([workspacePath, name]) => {
             if (
                 minimatch.match(changedFiles, path.join(workspacePath, "**"), {
