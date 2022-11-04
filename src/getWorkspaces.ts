@@ -18,12 +18,8 @@ const getPackageConfig = async (packageDirPath: string) => {
             const pnpmWorkspacesConfig = parse(file.toString());
 
             parsedConfig.workspaces = pnpmWorkspacesConfig.packages;
-
-            console.log("pnpm config", pnpmWorkspacesConfig);
         }
     }
-
-    console.log("Parsed config:", parsedConfig);
 
     return parsedConfig;
 };
