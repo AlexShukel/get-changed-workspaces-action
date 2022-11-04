@@ -14,6 +14,8 @@ export const run = async () => {
     const changedFiles = (await getChangedFiles()).map((file) => path.join(gitRoot, file));
     const workspaces = await getWorkspaces();
 
+    console.log(workspaces);
+
     const names: string[] = [];
     const paths: string[] = [];
 

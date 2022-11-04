@@ -18169,6 +18169,7 @@ var run = async () => {
   const gitRoot = await getRootDirectory();
   const changedFiles = (await getChangedFiles()).map((file) => import_path2.default.join(gitRoot, file));
   const workspaces = await getWorkspaces();
+  console.log(workspaces);
   const names = [];
   const paths = [];
   const filter = (0, import_core3.getInput)("filter");
