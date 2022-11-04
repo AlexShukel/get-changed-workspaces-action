@@ -1,11 +1,12 @@
 import path from "path";
 
-import { getInput, setOutput } from "@actions/core";
+import { getInput, setFailed, setOutput } from "@actions/core";
 import minimatch from "minimatch";
 
 import { getChangedFiles } from "./getChangedFiles";
 import { getRootDirectory } from "./getRootDirectory";
 import { getWorkspaces } from "./getWorkspaces";
+import { isValidRegex } from "./isValidRegex";
 
 export const run = async () => {
     console.log("Running get-changed-workspaces-action");
@@ -16,23 +17,25 @@ export const run = async () => {
     const names: string[] = [];
     const paths: string[] = [];
 
-    const filterRegex = getInput("filter");
-    Array.from(workspaces)
-        .filter(([name]) => {
-            console.log(name, filterRegex, new RegExp(filterRegex).test(name));
+    const filter = getInput("filter");
 
-            return new RegExp(filterRegex).test(name);
-        })
-        .forEach(([name, workspacePath]) => {
-            if (
-                minimatch.match(changedFiles, path.join(workspacePath, "**"), {
-                    dot: true,
-                }).length > 0
-            ) {
-                names.push(name);
-                paths.push(workspacePath);
-            }
-        });
+    if (!isValidRegex(filter)) {
+        setFailed("Filter option is not valid regex.");
+    }
+
+    const filterRegex = new RegExp(filter);
+
+    workspaces.forEach(([workspacePath, name]) => {
+        if (
+            filterRegex.test(name) &&
+            minimatch.match(changedFiles, path.join(workspacePath, "**"), {
+                dot: true,
+            }).length > 0
+        ) {
+            names.push(name);
+            paths.push(workspacePath);
+        }
+    });
 
     setOutput("names", names);
     setOutput("paths", paths);

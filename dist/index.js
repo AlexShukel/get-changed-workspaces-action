@@ -2101,11 +2101,11 @@ Support boolean input list: \`true | True | TRUE | false | False | FALSE\``);
       command_1.issue("echo", enabled ? "on" : "off");
     }
     exports.setCommandEcho = setCommandEcho;
-    function setFailed2(message) {
+    function setFailed3(message) {
       process.exitCode = ExitCode.Failure;
       error(message);
     }
-    exports.setFailed = setFailed2;
+    exports.setFailed = setFailed3;
     function isDebug() {
       return process.env["RUNNER_DEBUG"] === "1";
     }
@@ -18152,6 +18152,17 @@ var getWorkspaces = async () => {
   return workspacesMap;
 };
 
+// src/isValidRegex.ts
+var isValidRegex = (pattern) => {
+  let isValid = true;
+  try {
+    new RegExp(pattern);
+  } catch {
+    isValid = false;
+  }
+  return isValid;
+};
+
 // src/run.ts
 var run = async () => {
   console.log("Running get-changed-workspaces-action");
@@ -18160,12 +18171,13 @@ var run = async () => {
   const workspaces = await getWorkspaces();
   const names = [];
   const paths = [];
-  const filterRegex = (0, import_core3.getInput)("filter");
-  Array.from(workspaces).filter(([name]) => {
-    console.log(name, filterRegex, new RegExp(filterRegex).test(name));
-    return new RegExp(filterRegex).test(name);
-  }).forEach(([name, workspacePath]) => {
-    if (import_minimatch.default.match(changedFiles, import_path2.default.join(workspacePath, "**"), {
+  const filter = (0, import_core3.getInput)("filter");
+  if (!isValidRegex(filter)) {
+    (0, import_core3.setFailed)("Filter option is not valid regex.");
+  }
+  const filterRegex = new RegExp(filter);
+  workspaces.forEach(([workspacePath, name]) => {
+    if (filterRegex.test(name) && import_minimatch.default.match(changedFiles, import_path2.default.join(workspacePath, "**"), {
       dot: true
     }).length > 0) {
       names.push(name);
