@@ -35,6 +35,7 @@
         "@actions/exec": "^1.1.1",
         "@actions/github": "^5.1.1",
         "@npmcli/map-workspaces": "^2.0.0",
-        "minimatch": "^3.0.4"
+        "minimatch": "^3.0.4",
+        "yaml": "^2.1.3"
     }
 }
