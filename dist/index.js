@@ -18177,8 +18177,7 @@ var run = async () => {
     (0, import_core3.setFailed)("Filter option is not valid regex.");
   }
   const filterRegex = new RegExp(filter);
-  workspaces.forEach(([workspacePath, name]) => {
-    console.log(name, filterRegex.test(name));
+  workspaces.forEach((workspacePath, name) => {
     if (filterRegex.test(name) && import_minimatch.default.match(changedFiles, import_path2.default.join(workspacePath, "**"), {
       dot: true
     }).length > 0) {
