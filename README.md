@@ -76,6 +76,18 @@ Example:
       working-directory: ./app/frontend
 ```
 
+### filter
+
+This input option (regular expression) allows to filter changed packages by their names. Example:
+
+```yml
+- uses: AlexShukel/get-changed-workspaces-action@v1.0.0
+  with:
+      filter: "@packages/*"
+```
+
+This filter will select only those packages that match "@packages/\*" regular expression.
+
 ### base-ref
 
 This input affects execution only when `push` event occurs. You can specify target of comparison (branch name or commit SHA).
