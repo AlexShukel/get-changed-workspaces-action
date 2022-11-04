@@ -26,6 +26,8 @@ export const run = async () => {
     const filterRegex = new RegExp(filter);
 
     workspaces.forEach(([workspacePath, name]) => {
+        console.log(name, filterRegex.test(name));
+
         if (
             filterRegex.test(name) &&
             minimatch.match(changedFiles, path.join(workspacePath, "**"), {
