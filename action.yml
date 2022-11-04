@@ -8,6 +8,9 @@ inputs:
     working-directory:
         description: Path to the directory that contains root package.json of monorepo
         required: false
+    filter:
+        description: Regex pattern to filter changed packages
+        required: false
     base-ref:
         description: |
             Git base reference (branch name or a commit hash). The change list will be compared to the base if
