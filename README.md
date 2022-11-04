@@ -78,13 +78,15 @@ Example:
 
 ### filter
 
-This input option allows to filter changed packages by some regex. Example:
+This input option (regular expression) allows to filter changed packages by their names. Example:
 
 ```yml
 - uses: AlexShukel/get-changed-workspaces-action@v1.0.0
   with:
       filter: "@packages/*"
 ```
+
+This filter will select only those packages that match "@packages/\*" regular expression.
 
 ### base-ref
 
