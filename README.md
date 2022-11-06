@@ -19,8 +19,7 @@ jobs:
     get-changed-workspaces:
         runs-on: ubuntu-latest
         outputs:
-            names: ${{ steps.changed-packages.outputs.names }}
-            paths: ${{ steps.changed-packages.outputs.paths }}
+            packages: ${{ steps.changed-packages.outputs.packages }}
             empty: ${{ steps.changed-packages.outputs.empty }}
         steps:
             - uses: actions/checkout@v2
@@ -32,10 +31,9 @@ jobs:
         needs: [get-changed-workspaces]
         strategy:
             matrix:
-                name: ${{ fromJson(needs.get-changed-workspaces.outputs.names) }}
-                path: ${{ fromJson(needs.get-changed-workspaces.outputs.paths) }}
+                package: ${{ fromJson(needs.get-changed-workspaces.outputs.packages) }}
         steps:
-            # describe steps for each modified package using ${{ matrix.name }} and ${{ matrix.path }}
+            # describe steps for each modified package using ${{ matrix.package.name }} and ${{ matrix.package.path }}
 ```
 
 2. Define `workspaces` in root `package.json`. Also it can be passed via action input [workspaces](#workspaces).
@@ -103,19 +101,11 @@ Example:
 
 Below is the list of all possible outputs that this action produces.
 
-### names
+### packages
 
-The names of changed packages (from `package.json`). Provided as JSON string.
+Array of changed packages, each containing its name and path. Provided as JSON string.
 
-Example: "['@monorepo/core', '@monorepo/react', '@monorepo/svelte']"
-
-If you want to use it in action [matrix](https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#jobsjob_idstrategymatrix), parse input with [fromJson](https://docs.github.com/en/actions/learn-github-actions/expressions#fromjson).
-
-### paths
-
-Paths to changed packages. Provided as JSON string.
-
-Example: "['packages/core', 'packages/react', 'packages/svelte']"
+Example: '[{"name":"@monorepo/core","path":"packages/core"},{"name":"@monorepo/react","path":"packages/react"}]'
 
 If you want to use it in action [matrix](https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#jobsjob_idstrategymatrix), parse input with [fromJson](https://docs.github.com/en/actions/learn-github-actions/expressions#fromjson).
 
