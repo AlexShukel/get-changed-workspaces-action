@@ -8,16 +8,18 @@ import { getRootDirectory } from "./getRootDirectory";
 import { getWorkspaces } from "./getWorkspaces";
 import { isValidRegex } from "./isValidRegex";
 
+type Package = {
+    name: string;
+    path: string;
+};
+
 export const run = async () => {
     console.log("Running get-changed-workspaces-action");
     const gitRoot = await getRootDirectory();
     const changedFiles = (await getChangedFiles()).map((file) => path.join(gitRoot, file));
     const workspaces = await getWorkspaces();
 
-    console.log(workspaces);
-
-    const names: string[] = [];
-    const paths: string[] = [];
+    const packages: Package[] = [];
 
     const filter = getInput("filter");
 
@@ -34,12 +36,10 @@ export const run = async () => {
                 dot: true,
             }).length > 0
         ) {
-            names.push(name);
-            paths.push(workspacePath);
+            packages.push({ name, path: workspacePath });
         }
     });
 
-    setOutput("names", names);
-    setOutput("paths", paths);
-    setOutput("empty", names.length === 0);
+    setOutput("packages", packages);
+    setOutput("empty", packages.length === 0);
 };
