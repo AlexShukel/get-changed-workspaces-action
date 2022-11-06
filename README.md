@@ -24,7 +24,7 @@ jobs:
         steps:
             - uses: actions/checkout@v2
             - name: Find changed workspaces
-              uses: AlexShukel/get-changed-workspaces-action@v1.0.0
+              uses: AlexShukel/get-changed-workspaces-action@v2.0.0
               id: changed-packages
     build:
         runs-on: ubuntu-latest
@@ -55,7 +55,7 @@ This input is an alternative to the property of `package.json`. It should be sim
 Example:
 
 ```yml
-- uses: AlexShukel/get-changed-workspaces-action@v1.0.0
+- uses: AlexShukel/get-changed-workspaces-action@v2.0.0
   with:
       workspaces: |
           packages/*
@@ -69,7 +69,7 @@ This input is required when your monorepo is located in different directory than
 Example:
 
 ```yml
-- uses: AlexShukel/get-changed-workspaces-action@v1.0.0
+- uses: AlexShukel/get-changed-workspaces-action@v2.0.0
   with:
       working-directory: ./app/frontend
 ```
@@ -79,7 +79,7 @@ Example:
 This input option (regular expression) allows to filter changed packages by their names. Example:
 
 ```yml
-- uses: AlexShukel/get-changed-workspaces-action@v1.0.0
+- uses: AlexShukel/get-changed-workspaces-action@v2.0.0
   with:
       filter: "@packages/*"
 ```
@@ -92,7 +92,7 @@ This input affects execution only when `push` event occurs. You can specify targ
 Example:
 
 ```yml
-- uses: AlexShukel/get-changed-workspaces-action@v1.0.0
+- uses: AlexShukel/get-changed-workspaces-action@v2.0.0
   with:
       base-ref: main
 ```
@@ -127,7 +127,7 @@ generate_matrix:
 
         - name: Find changed packages
           id: changed_packages
-          uses: alexshukel/get-changed-workspaces-action@v1.0.0
+          uses: alexshukel/get-changed-workspaces-action@v2.0.0
 build:
     name: Build
     # Skip build job if there wasn't any changed packages
