@@ -18,10 +18,8 @@ inputs:
         required: false
         default: ${{ github.ref }}
 outputs:
-    names:
-        description: Array of changed workspaces package.json names
-    paths:
-        description: Array of changed workspaces paths
+    packages:
+        description: Array of changed packages, each containing its name and path
     empty:
         description: Boolean that indicates if there was any changed packages
 
